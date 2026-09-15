@@ -1,25 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Interactive Bangladesh administrative hierarchy">
-<title>Bangladesh Administrative Hierarchy</title>
-<link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-<header class="header">
-  <h1>Bangladesh Interactive Hierarchy</h1>
-  <p>Explore Bangladesh → 8 Divisions → Districts → Upazilas through an animated, responsive interface.</p>
-</header>
-<main class="container">
-  <nav id="breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
-  <section class="panel">
-    <div id="app"><div class="loading">Loading administrative data...</div></div>
-  </section>
-  <p class="hint">💡 Click a level to go deeper. Use the Back button or breadcrumb to move up.</p>
-</main>
-<footer class="footer">Bangladesh Administrative Structure</footer>
-<script src="assets/js/app.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Interactive Bangladesh administrative hierarchy"
+    />
+    <title>Bangladesh Administrative Hierarchy</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1>Bangladesh Interactive Hierarchy</h1>
+    </header>
+
+    <main class="container">
+
+      <nav id="breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+<section class="search-section" aria-label="Search">
+  <div class="search-box">
+    <span class="search-icon">⌕</span>
+    <input id="searchInput" type="search" placeholder="Search division, district or upazila..." autocomplete="off" aria-label="Search division, district or upazila">
+    <button id="clearSearch" class="clear-search" type="button" aria-label="Clear search">×</button>
+  </div>
+  <div id="searchResults" class="search-results" hidden></div>
+</section>
+
+      <section class="panel">
+        <div id="app">
+          <div class="loading">Loading administrative data...</div>
+        </div>
+      </section>
+      
+    </main>
+
+    <footer class="footer">Bangladesh Administrative Structure</footer>
+
+    <script src="assets/js/app.js"></script>
+
+  </body>
 </html>
