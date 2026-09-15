@@ -73,13 +73,13 @@ function render() {
   app.appendChild(title);
 
   if (path.length === 0) {
-    h.textContent = "🇧🇩 Bangladesh";
+    
     p.textContent = "Click Bangladesh to reveal the 8 administrative divisions";
 
     const start = document.createElement("div");
     start.className = "start";
     start.innerHTML =
-      "<div class='emoji'>🇧🇩</div><h3>Bangladesh</h3><span>Click to explore 8 divisions</span>";
+      "<h3>Bangladesh</h3><span>Click to explore 8 divisions</span>";
     start.addEventListener("click", () => {
       path = ["__divisions__"];
       render();
