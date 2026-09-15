@@ -1,54 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Bangladesh Interactive Administrative Hierarchy</title>
-<style>
-:root{--g:#006a4e;--g2:#008c68;--ink:#10251e;--muted:#64756f;--bg:#f4f8f6;--white:#fff;--border:#dceae5}
-*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--bg)}
-.top{background:linear-gradient(135deg,#003f2f,#006a4e);color:#fff;padding:34px 18px;text-align:center}.top h1{margin:0;font-size:clamp(28px,5vw,48px)}.top p{margin:10px auto 0;max-width:720px;color:#dff2eb;line-height:1.6;font-size:15px}
-.wrap{width:min(1100px,calc(100% - 24px));margin:28px auto 60px}.breadcrumb{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;align-items:center;margin-bottom:18px;color:var(--muted);font-size:14px}.breadcrumb button{border:0;background:none;color:var(--g);font-weight:700;cursor:pointer;padding:3px 5px}.breadcrumb .current{font-weight:700;color:var(--ink)}
-.panel{background:#fff;border:1px solid var(--border);border-radius:24px;padding:clamp(18px,4vw,34px);box-shadow:0 16px 40px rgba(0,70,50,.10);overflow:hidden}.title{text-align:center;margin-bottom:24px}.title h2{margin:0;font-size:clamp(23px,4vw,34px)}.title p{margin:7px 0 0;color:var(--muted);font-size:14px}
-.start{width:min(430px,100%);margin:auto;background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;border-radius:22px;padding:28px;text-align:center;box-shadow:0 18px 35px rgba(0,106,78,.22);cursor:pointer;transition:.25s;animation:pop .6s both}.start:hover{transform:translateY(-5px);box-shadow:0 25px 45px rgba(0,106,78,.28)}.start .emoji{font-size:42px}.start h3{margin:8px 0 5px;font-size:25px}.start span{font-size:13px;opacity:.88}
-.line{height:48px;width:3px;background:linear-gradient(var(--g),#8ac8b6);margin:0 auto;position:relative;overflow:hidden}.line:after{content:"";position:absolute;left:0;top:-60px;width:100%;height:60px;background:#fff;animation:draw .8s ease forwards}@keyframes draw{to{top:110%}}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.item{background:#fff;border:1px solid var(--border);border-radius:17px;padding:17px 12px;text-align:center;min-height:88px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:.22s;animation:pop .45s both}.item:hover{transform:translateY(-5px);border-color:#8bc9b9;box-shadow:0 12px 28px rgba(0,70,50,.11)}.item strong{font-size:15px}.item small{color:var(--muted);margin-top:5px}@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
-.back{display:block;margin:0 auto 22px;border:1px solid #c8ddd6;background:#edf7f3;color:var(--g);font-weight:700;padding:10px 17px;border-radius:12px;cursor:pointer}.hint{text-align:center;color:var(--muted);font-size:13px;margin:25px auto 0}.footer{text-align:center;color:var(--muted);font-size:12px;padding:22px 10px;border-top:1px solid var(--border)}
-@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:430px){.grid{grid-template-columns:1fr 1fr;gap:9px}.item{padding:14px 7px;min-height:78px}.item strong{font-size:13px}.panel{border-radius:18px;padding:16px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
-</style></head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Interactive Bangladesh administrative hierarchy">
+<title>Bangladesh Administrative Hierarchy</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
 <body>
-<header class="top"><h1>Bangladesh Interactive Hierarchy</h1><p>Click Bangladesh → choose a division → choose a district → explore its upazilas. No map image is used.</p></header>
-<main class="wrap"><div id="breadcrumb" class="breadcrumb"></div><section class="panel"><div id="app"></div></section><div class="hint">💡 Every level opens with a smooth animation. Use the breadcrumb or Back button to go up.</div></main>
-<footer class="footer">Bangladesh Administrative Structure • Responsive Interactive Demo</footer>
-<script>
-const DATA={"divisions": {"Dhaka": ["Dhaka", "Faridpur", "Gazipur", "Gopalganj", "Kishoreganj", "Madaripur", "Manikganj", "Munshiganj", "Narayanganj", "Narsingdi", "Rajbari", "Shariatpur", "Tangail"], "Chattogram": ["Bandarban", "Brahmanbaria", "Chandpur", "Chattogram", "Cox's Bazar", "Cumilla", "Feni", "Khagrachhari", "Lakshmipur", "Noakhali", "Rangamati"], "Rajshahi": ["Bogura", "Chapainawabganj", "Joypurhat", "Naogaon", "Natore", "Pabna", "Rajshahi", "Sirajganj"], "Khulna": ["Bagerhat", "Chuadanga", "Jashore", "Jhenaidah", "Khulna", "Kushtia", "Magura", "Meherpur", "Narail", "Satkhira"], "Barishal": ["Barguna", "Barishal", "Bhola", "Jhalokathi", "Patuakhali", "Pirojpur"], "Sylhet": ["Habiganj", "Moulvibazar", "Sunamganj", "Sylhet"], "Rangpur": ["Dinajpur", "Gaibandha", "Kurigram", "Lalmonirhat", "Nilphamari", "Panchagarh", "Rangpur", "Thakurgaon"], "Mymensingh": ["Jamalpur", "Mymensingh", "Netrokona", "Sherpur"]}, "upazilas": {"Dhaka": ["Dohar", "Keraniganj", "Nawabganj", "Savar", "Dhamrai"], "Gazipur": ["Gazipur Sadar", "Kaliakair", "Kaliganj", "Kapasia", "Sreepur"], "Faridpur": ["Alfadanga", "Bhanga", "Boalmari", "Charbhadrasan", "Faridpur Sadar", "Madhukhali", "Nagarkanda", "Sadarpur", "Saltha"], "Gopalganj": ["Gopalganj Sadar", "Kashiani", "Kotalipara", "Muksudpur", "Tungipara"], "Kishoreganj": ["Austagram", "Bajitpur", "Bhairab", "Hossainpur", "Itna", "Karimganj", "Katiadi", "Kishoreganj Sadar", "Kuliarchar", "Mithamain", "Nikli", "Pakundia", "Tarail"], "Madaripur": ["Dasar", "Kalkini", "Madaripur Sadar", "Rajoir", "Shibchar"], "Manikganj": ["Daulatpur", "Ghior", "Harirampur", "Manikganj Sadar", "Saturia", "Shibalaya", "Singair"], "Munshiganj": ["Gazaria", "Lohajang", "Munshiganj Sadar", "Sirajdikhan", "Sreenagar", "Tongibari"], "Narayanganj": ["Araihazar", "Bandar", "Narayanganj Sadar", "Rupganj", "Sonargaon"], "Narsingdi": ["Belabo", "Monohardi", "Narsingdi Sadar", "Palash", "Raipura", "Shibpur"], "Rajbari": ["Baliakandi", "Goalanda", "Kalukhali", "Pangsha", "Rajbari Sadar"], "Shariatpur": ["Bhedarganj", "Damudya", "Gosairhat", "Naria", "Shariatpur Sadar", "Zajira"], "Tangail": ["Basail", "Bhuapur", "Delduar", "Dhanbari", "Ghatail", "Gopalpur", "Kalihati", "Madhupur", "Mirzapur", "Nagarpur", "Sakhipur", "Tangail Sadar"], "Chattogram": ["Anwara", "Banshkhali", "Boalkhali", "Chandanaish", "Fatikchhari", "Hathazari", "Lohagara", "Mirsharai", "Patiya", "Rangunia", "Raozan", "Sandwip", "Satkania", "Sitakunda"], "Cox's Bazar": ["Chakaria", "Cox's Bazar Sadar", "Eidgaon", "Kutubdia", "Maheshkhali", "Pekua", "Ramu", "Teknaf", "Ukhia"], "Feni": ["Chhagalnaiya", "Daganbhuiyan", "Feni Sadar", "Fulgazi", "Parshuram", "Sonagazi"], "Noakhali": ["Begumganj", "Chatkhil", "Companiganj", "Hatiya", "Kabirhat", "Senbagh", "Sonaimuri", "Subarnachar", "Noakhali Sadar"], "Rajshahi": ["Bagha", "Bagmara", "Charghat", "Durgapur", "Godagari", "Mohanpur", "Paba", "Puthia", "Tanore"], "Bogura": ["Adamdighi", "Bogura Sadar", "Dhunat", "Dhupchanchia", "Gabtali", "Kahaloo", "Nandigram", "Sariakandi", "Shajahanpur", "Sherpur", "Shibganj", "Sonatala"], "Naogaon": ["Atrai", "Badalgachhi", "Dhamoirhat", "Manda", "Mahadebpur", "Naogaon Sadar", "Niamatpur", "Patnitala", "Porsha", "Raninagar", "Sapahar"], "Khulna": ["Batiaghata", "Dacope", "Dighalia", "Dumuria", "Koyra", "Paikgachha", "Phultala", "Rupsa", "Terokhada", "Khulna Sadar"], "Jashore": ["Abhaynagar", "Bagherpara", "Chaugachha", "Jhikargachha", "Keshabpur", "Manirampur", "Sharsha", "Jashore Sadar"], "Barishal": ["Agailjhara", "Babuganj", "Bakerganj", "Banaripara", "Barishal Sadar", "Gournadi", "Hizla", "Mehendiganj", "Muladi", "Wazirpur"], "Bhola": ["Bhola Sadar", "Burhanuddin", "Char Fasson", "Daulatkhan", "Lalmohan", "Manpura", "Tazumuddin"], "Sylhet": ["Balaganj", "Beanibazar", "Bishwanath", "Companiganj", "Dakshin Surma", "Fenchuganj", "Golapganj", "Gowainghat", "Jaintiapur", "Kanaighat", "Osmani Nagar", "Sylhet Sadar", "Zakiganj"], "Habiganj": ["Ajmiriganj", "Bahubal", "Baniachong", "Chunarughat", "Habiganj Sadar", "Lakhai", "Madhabpur", "Nabiganj", "Shayestaganj"], "Rangpur": ["Badarganj", "Gangachara", "Kaunia", "Mithapukur", "Pirgachha", "Pirganj", "Rangpur Sadar", "Taraganj"], "Dinajpur": ["Birampur", "Birganj", "Biral", "Bochaganj", "Chirirbandar", "Dinajpur Sadar", "Fulbari", "Ghoraghat", "Hakimpur", "Kaharole", "Khansama", "Nawabganj", "Parbatipur"], "Mymensingh": ["Bhaluka", "Dhobaura", "Fulbaria", "Gaffargaon", "Gauripur", "Haluaghat", "Ishwarganj", "Muktagachha", "Mymensingh Sadar", "Nandail", "Phulpur", "Tarakanda", "Trishal"], "Jamalpur": ["Baksiganj", "Dewanganj", "Islampur", "Jamalpur Sadar", "Madarganj", "Melandaha", "Sarishabari"], "Netrokona": ["Atpara", "Barhatta", "Durgapur", "Khaliajuri", "Kalmakanda", "Kendua", "Madan", "Mohanganj", "Netrokona Sadar", "Purbadhala"]}};
-const app=document.getElementById('app'), breadcrumb=document.getElementById('breadcrumb');let path=[];
-function btn(text,fn){const b=document.createElement('button');b.textContent=text;b.onclick=fn;return b}
-function render(){
- breadcrumb.innerHTML=''; breadcrumb.appendChild(btn('Bangladesh',()=>{path=[];render()}));
- if(path.length){breadcrumb.append('›');let c=document.createElement('span');c.className='current';c.textContent=path[path.length-1]==='__divisions__'?'8 Divisions':path[path.length-1];breadcrumb.appendChild(c)}
- app.innerHTML='';
- let title=document.createElement('div');title.className='title';let h=document.createElement('h2'),p=document.createElement('p');title.append(h,p);app.appendChild(title);
- if(!path.length){
-  h.textContent='🇧🇩 Bangladesh';p.textContent='Click Bangladesh to reveal the 8 divisions';
-  let s=document.createElement('div');s.className='start';s.innerHTML='<div class="emoji">🇧🇩</div><h3>Bangladesh</h3><span>Click to explore 8 divisions</span>';s.onclick=()=>{path=['__divisions__'];render()};app.appendChild(s);return;
- }
- if(path.length===1){
-  h.textContent='8 Divisions';p.textContent='Choose a division to view its districts';let l=document.createElement('div');l.className='line';app.appendChild(l);
-  let g=document.createElement('div');g.className='grid';Object.keys(DATA.divisions).forEach((n,i)=>{let x=document.createElement('div');x.className='item';x.style.animationDelay=i*45+'ms';x.innerHTML='<strong>'+n+'</strong><small>'+DATA.divisions[n].length+' Districts</small>';x.onclick=()=>{path=['__divisions__',n];render()};g.appendChild(x)});app.appendChild(g);return;
- }
- const division=path[1],district=path[2];
- if(!district){
-  h.textContent=division+' Division';p.textContent='Choose a district to view its upazilas';let l=document.createElement('div');l.className='line';app.appendChild(l);
-  let b=document.createElement('button');b.className='back';b.textContent='← Back to Divisions';b.onclick=()=>{path=['__divisions__'];render()};app.appendChild(b);
-  let g=document.createElement('div');g.className='grid';DATA.divisions[division].forEach((n,i)=>{let x=document.createElement('div');x.className='item';x.style.animationDelay=i*35+'ms';let c=(DATA.upazilas[n]||[]).length;x.innerHTML='<strong>'+n+'</strong><small>'+(c?c+' Upazilas':'Click to explore')+'</small>';x.onclick=()=>{path=['__divisions__',division,n];render()};g.appendChild(x)});app.appendChild(g);return;
- }
- h.textContent=district+' District';p.textContent='Upazilas of '+district+' District';let l=document.createElement('div');l.className='line';app.appendChild(l);
- let b=document.createElement('button');b.className='back';b.textContent='← Back to '+division+' Division';b.onclick=()=>{path=['__divisions__',division];render()};app.appendChild(b);
- let g=document.createElement('div');g.className='grid',list=DATA.upazilas[district]||[];
- if(!list.length){let e=document.createElement('div');e.className='item';e.innerHTML='<strong>Upazilas</strong><small>Data can be added here</small>';g.appendChild(e)}
- else list.forEach((n,i)=>{let x=document.createElement('div');x.className='item';x.style.animationDelay=i*30+'ms';x.innerHTML='<strong>'+n+'</strong><small>Upazila</small>';g.appendChild(x)});
- app.appendChild(g);
-}
-render();
-</script></body></html>
+<header class="header">
+  <h1>Bangladesh Interactive Hierarchy</h1>
+  <p>Explore Bangladesh → 8 Divisions → Districts → Upazilas through an animated, responsive interface.</p>
+</header>
+<main class="container">
+  <nav id="breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+  <section class="panel">
+    <div id="app"><div class="loading">Loading administrative data...</div></div>
+  </section>
+  <p class="hint">💡 Click a level to go deeper. Use the Back button or breadcrumb to move up.</p>
+</main>
+<footer class="footer">Bangladesh Administrative Structure</footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
