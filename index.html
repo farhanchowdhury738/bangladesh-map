@@ -12,7 +12,7 @@
 .start{width:min(430px,100%);margin:auto;background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;border-radius:22px;padding:28px;text-align:center;box-shadow:0 18px 35px rgba(0,106,78,.22);cursor:pointer;transition:.25s;animation:pop .6s both}.start:hover{transform:translateY(-5px);box-shadow:0 25px 45px rgba(0,106,78,.28)}.start .emoji{font-size:42px}.start h3{margin:8px 0 5px;font-size:25px}.start span{font-size:13px;opacity:.88}
 .line{height:48px;width:3px;background:linear-gradient(var(--g),#8ac8b6);margin:0 auto;position:relative;overflow:hidden}.line:after{content:"";position:absolute;left:0;top:-60px;width:100%;height:60px;background:#fff;animation:draw .8s ease forwards}@keyframes draw{to{top:110%}}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.item{background:#fff;border:1px solid var(--border);border-radius:17px;padding:17px 12px;text-align:center;min-height:88px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:.22s;animation:pop .45s both}.item:hover{transform:translateY(-5px);border-color:#8bc9b9;box-shadow:0 12px 28px rgba(0,70,50,.11)}.item strong{font-size:15px}.item small{color:var(--muted);margin-top:5px}@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
-.back{display:block;margin:26px auto 0;border:1px solid #c8ddd6;background:#edf7f3;color:var(--g);font-weight:700;padding:10px 17px;border-radius:12px;cursor:pointer}.hint{text-align:center;color:var(--muted);font-size:13px;margin:25px auto 0}.footer{text-align:center;color:var(--muted);font-size:12px;padding:22px 10px;border-top:1px solid var(--border)}
+.back{display:block;margin:0 auto 22px;border:1px solid #c8ddd6;background:#edf7f3;color:var(--g);font-weight:700;padding:10px 17px;border-radius:12px;cursor:pointer}.hint{text-align:center;color:var(--muted);font-size:13px;margin:25px auto 0}.footer{text-align:center;color:var(--muted);font-size:12px;padding:22px 10px;border-top:1px solid var(--border)}
 @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:430px){.grid{grid-template-columns:1fr 1fr;gap:9px}.item{padding:14px 7px;min-height:78px}.item strong{font-size:13px}.panel{border-radius:18px;padding:16px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style></head>
@@ -40,14 +40,15 @@ function render(){
  const division=path[1],district=path[2];
  if(!district){
   h.textContent=division+' Division';p.textContent='Choose a district to view its upazilas';let l=document.createElement('div');l.className='line';app.appendChild(l);
-  let g=document.createElement('div');g.className='grid';DATA.divisions[division].forEach((n,i)=>{let x=document.createElement('div');x.className='item';x.style.animationDelay=i*35+'ms';let c=(DATA.upazilas[n]||[]).length;x.innerHTML='<strong>'+n+'</strong><small>'+(c?c+' Upazilas':'Click to explore')+'</small>';x.onclick=()=>{path=['__divisions__',division,n];render()};g.appendChild(x)});app.appendChild(g);
-  let b=document.createElement('button');b.className='back';b.textContent='← Back to Divisions';b.onclick=()=>{path=['__divisions__'];render()};app.appendChild(b);return;
+  let b=document.createElement('button');b.className='back';b.textContent='← Back to Divisions';b.onclick=()=>{path=['__divisions__'];render()};app.appendChild(b);
+  let g=document.createElement('div');g.className='grid';DATA.divisions[division].forEach((n,i)=>{let x=document.createElement('div');x.className='item';x.style.animationDelay=i*35+'ms';let c=(DATA.upazilas[n]||[]).length;x.innerHTML='<strong>'+n+'</strong><small>'+(c?c+' Upazilas':'Click to explore')+'</small>';x.onclick=()=>{path=['__divisions__',division,n];render()};g.appendChild(x)});app.appendChild(g);return;
  }
  h.textContent=district+' District';p.textContent='Upazilas of '+district+' District';let l=document.createElement('div');l.className='line';app.appendChild(l);
+ let b=document.createElement('button');b.className='back';b.textContent='← Back to '+division+' Division';b.onclick=()=>{path=['__divisions__',division];render()};app.appendChild(b);
  let g=document.createElement('div');g.className='grid',list=DATA.upazilas[district]||[];
  if(!list.length){let e=document.createElement('div');e.className='item';e.innerHTML='<strong>Upazilas</strong><small>Data can be added here</small>';g.appendChild(e)}
  else list.forEach((n,i)=>{let x=document.createElement('div');x.className='item';x.style.animationDelay=i*30+'ms';x.innerHTML='<strong>'+n+'</strong><small>Upazila</small>';g.appendChild(x)});
- app.appendChild(g);let b=document.createElement('button');b.className='back';b.textContent='← Back to '+division+' Division';b.onclick=()=>{path=['__divisions__',division];render()};app.appendChild(b);
+ app.appendChild(g);
 }
 render();
 </script></body></html>
